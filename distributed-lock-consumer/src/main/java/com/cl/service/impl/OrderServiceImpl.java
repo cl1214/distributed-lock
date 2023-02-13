@@ -31,6 +31,7 @@ public class OrderServiceImpl implements OrderService {
             Thread.sleep(100);
         } catch (Exception e) {
             e.printStackTrace();
+            return false;
         } finally {
             distributedLock.unLock(String.valueOf(id), String.valueOf(uuid));
         }
@@ -47,7 +48,8 @@ public class OrderServiceImpl implements OrderService {
             lock.tryLock(1, 1, TimeUnit.DAYS);
             System.out.println("====进行下单=====");
         } catch (Exception e) {
-
+            e.printStackTrace();
+            return false;
         } finally {
             lock.unlock();
         }
